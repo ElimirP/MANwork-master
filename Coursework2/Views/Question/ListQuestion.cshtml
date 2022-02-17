@@ -9,166 +9,144 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </head>
 <body>
-
-
-
-    <table border="1">
-        <caption>Усі питання, що е в базі:</caption>
-        <tr>
-            <th>Номер</th>
-            <th>Назва пакету</th>
-            <th>Текст питання</th>
-            <th>Відповідь</th>
-            <th>Коментар</th>
-            <th>Автор</th>
-        </tr>
-
-        @{
-            foreach (var x in @Model.Item1)
-            {
-                string h = Convert.ToString(x.Id);
+    <div class="container">
+        <div class="row">
+            <h4 class="mt-2">Усі питання, що е в базі:</h4>
+            <table class="table table-striped table-hover">
                 <tr>
-                    <th>@h</th>
-                    <th>@x.PackageOfQuestions?.Name</th>
-                    <th>@x.QuestionText</th>
-                    <th>@x.Answer</th>
-                    <th>@x.Comment</th>
-                    <th>@x.Author</th>
-                    <th>
-                        <form method="post" action="/Question/EditingQuestion">
-                            <input type="hidden" name="idQuestion" value="@h" />
-                            <input type="hidden" name="idLeading" value="@Model.Item3" />
-                            <button type="submit">Редагувати</button>
-                        </form>
-                    </th>
+                    <th>Номер</th>
+                    <th>Назва пакету</th>
+                    <th>Текст питання</th>
+                    <th>Відповідь</th>
+                    <th>Коментар</th>
+                    <th>Автор</th>
+                    <th></th>
                 </tr>
-            }
-        }
 
-    </table>
-
-
-
-
-    <table border="1">
-        <caption>Усі питання, що е в базі:</caption>
-        <tr>
-            <th>Номер</th>
-            <th>Назва турніру</th>
-            <th>Автор пакету</th>
-            <th>Дата створення</th>
-        </tr>
-        <tr>
-            @{
-                foreach (var x in @Model.Item2)
-                {
-                <tr>
-                    <th>@x.Id</th>
-                    <th>@x.Name</th>
-                    <th>@x.PackageEditor</th>
-                    <th>@x.DateOfCreation</th>
-                    <th>
-                        <form method="post" action="/Question/EditingPackage">
-                            <input type="hidden" value="@x.Id" name="idPackage">
-                            <input type="hidden" name="idLeading" value="@Model.Item3" />
-                            <button type="submit">Редагувати</button>
-                        </form>
-                    </th>
-                </tr>
+                @{
+                    foreach (var x in @Model.Item1)
+                    {
+                        string h = Convert.ToString(x.Id);
+                        <tr>
+                            <th>@h</th>
+                            <th>@x.PackageOfQuestions?.Name</th>
+                            <th>@x.QuestionText</th>
+                            <th>@x.Answer</th>
+                            <th>@x.Comment</th>
+                            <th>@x.Author</th>
+                            <th>
+                                <form method="post" action="/Question/EditingQuestion">
+                                    <input type="hidden" name="idQuestion" value="@h" />
+                                    <input type="hidden" name="idLeading" value="@Model.Item3" />
+                                    <button class="btn btn-outline-primary" type="submit">Редагувати</button>
+                                </form>
+                            </th>
+                        </tr>
+                    }
                 }
-            }
-        </tr>
-    </table>
-    <br />
-    <style>
-        .abobaBlock {
-            display: flex;
-            flex-wrap: nowrap;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            margin: 10px;
-        }
-        .abobaMain{
-            display: flex;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-        }
-    </style>
 
-        <form class="abobaMain" method="post" action="/Question/addPackage">
-            <div class="abobaBlock">
-                <label>Назва пакету питань:</label>
-                <input type="text" name="name_of_package" required>
-            </div>
-            <div class="abobaBlock">
-                <label>Хто редактор пакету:</label>
-                <input type="text" name="package_editor" required>
-            </div>
-            <div class="abobaBlock">
-            <label>Коли створено пакет:</label>
-            <input type="datetime-local" name="datetime" required>
-              </div>
-               <div class="abobaBlock">
-                   <label>&nbsp;</label>
-            <input type="hidden" name="idLeading" value="@Model.Item3">
-            <button type="submit">Створити пакет</button>
-               </div>
+            </table>
+        </div>
+        <div class="row">
+            <h4 class="mt-2">Усі пакети, що е в базі:</h4>
+            <table class="table table-striped table-hover">
 
-        </form>
-       
-        <hr />
-        <form method="post" action="/Question/addQuestion">
-            <div  class="abobaMain" >
-                  <div class="abobaBlock">
-                <label>Введіть текст питання:</label>
-                <input type="text" name="question_text" required>
-            </div>
-            <div class="abobaBlock">
-                <label>Введіть відповідь питання:</label>
-                <input type="text" name="answer" required>
-            </div>
-            <div class="abobaBlock">
-                <label>Введіть коментар до питання:</label>
-                <input type="text" name="сomment" required>                
-            </div>
-            </div>
-          <div  class="abobaMain" >
-               <dv class="abobaBlock">
-                <label>Введіть автора питання:</label>
-                <input type="text" name="author" required>
-            </dv>
-            <div class="abobaBlock">
-                <label>Виберіть, до якого пакету належить питання:</label>
-                <select size="1" name="packages">
-                    <option disabled>Пакети питань</option>
+                <tr>
+                    <th>Номер</th>
+                    <th>Назва турніру</th>
+                    <th>Автор пакету</th>
+                    <th>Дата створення</th>
+                    <th></th>
+                </tr>
+                <tr>
                     @{
                         foreach (var x in @Model.Item2)
                         {
-                            <option value="@x.Id">@x.Name</option>
+                        <tr>
+                            <th>@x.Id</th>
+                            <th>@x.Name</th>
+                            <th>@x.PackageEditor</th>
+                            <th>@x.DateOfCreation</th>
+                            <th>
+                                <form method="post" action="/Question/EditingPackage">
+                                    <input type="hidden" value="@x.Id" name="idPackage">
+                                    <input type="hidden" name="idLeading" value="@Model.Item3" />
+                                    <button class="btn btn-outline-primary" type="submit">Редагувати</button>
+                                </form>
+                            </th>
+                        </tr>
                         }
                     }
-                </select>
-            </div>
-            <input type="hidden" name="idLeading" value="@Model.Item3">
-            <div class="abobaBlock">
-                <label>&nbsp;</label>
-                <button type="submit">Створити пакет питань</button>
-            </div>
-          </div>
-           
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <form class="col-8 offset-2" method="post" action="/Question/addPackage">
+                <div class="mb-3">
+                    <label for="name_of_package_EL" class="form-label">Назва пакету питань:</label>
+                    <input type="text" id="name_of_package_EL" class="form-control" name="name_of_package" required>
+                </div>
+                <div class="mb-3">
+                    <label for="package_editor_EL" class="form-label">Хто редактор пакету:</label>
+                    <input type="text" id="package_editor_EL" class="form-control" name="package_editor" required>
+                </div>
+                <div class="mb-3">
+                    <label for="datetime_EL" class="form-label">Коли створено пакет:</label>
+                    <input id="datetime_EL" type="datetime-local" class="form-control" name="datetime" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Створити пакет</button>
+            </form>
+        </div>
+        <hr />
+        <div class="row">
+            <form class="col-8 offset-2" method="post" action="/Question/addQuestion">
+                <div class="mb-3">
+                    <label for="question_text_EL" class="form-label">Введіть текст питання:</label>
+                    <input type="text" id="question_text_EL" class="form-control" name="question_text" required>
+                </div>
+                <div class="mb-3">
+                    <label for="answer_EL" class="form-label">Введіть відповідь питання:</label>
+                    <input type="text" id="answer_EL" class="form-control" name="answer" required>
+                </div>
+                <div class="mb-3">
+                    <label for="omment_EL" class="form-label">Введіть коментар до питання:</label>
+                    <input type="text" id="omment_EL" class="form-control" name="сomment" required>
+                </div>
+                <div class="mb-3">
+                    <label for="author_EL" class="form-label">Введіть автора питання:</label>
+                    <input type="text" id="author_EL" class="form-control" name="author" required>
+                </div>
+                <div class="mb-3" >
+                    <label for="packages_EL" class="form-label">Виберіть, до якого пакету належить питання:</label>
+                    <select  class="form-select" id="packages_EL" name="packages">
+                        <option disabled>Пакети питань</option>
+                        @{
+                            foreach (var x in @Model.Item2)
+                            {
+                                <option value="@x.Id">@x.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
 
-        </form>
+                <input type="hidden" name="idLeading" value="@Model.Item3">
+                <button type="submit" class="btn btn-primary">Створити питання</button>
+            </form>
+        </div>
+
+
+
 
         <form method="post" action="/Leading/ListLeadingString">
             <input type="hidden" name="idLeading" value="@Model.Item3">
             <button type="submit">Повернутися назад</button>
         </form>
-  
+    </div>
 </body>
 
 </html>
