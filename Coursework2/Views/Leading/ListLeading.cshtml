@@ -1,5 +1,5 @@
 ﻿@model Tuple<List<Coursework2.Data.Models.Leading>, List<Coursework2.Data.Models.GameSession>, List<Coursework2.Data.Models.PackageOfQuestions>>
-    
+
 @{
     Layout = null;
 }
@@ -10,34 +10,38 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </head>
 <body>
+    <div class="container">
 
-    <script src="/JS/ListUsers.js"></script>
-    <table border="1">
-        <caption>Ведучі платформи</caption>
-        <tr>
-            <th>Номер</th>
-            <th>Призвище</th>
-            <th>Ім'я</th>
-        </tr>
-        <tr>
-            <th>@Model.Item1[0].Id</th>
-            <th>@Model.Item1[0].Surname</th>
-            <th>@Model.Item1[0].Name</th>
-        </tr>
-    </table>
+        <h4 class="mt-2">Ведучі платформи:</h4>
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>Номер</th>
+                <th>Призвище</th>
+                <th>Ім'я</th>
+            </tr>
+            <tr>
+                <th>@Model.Item1[0].Id</th>
+                <th>@Model.Item1[0].Surname</th>
+                <th>@Model.Item1[0].Name</th>
+            </tr>
+        </table>
 
-    <form method="post" action="/CurrQuestion/CurrQuestionFinishLeading" id="Result">
-    </form>
+        <h4 class="mt-2">Усі ваши ігри:</h4>
+        <form method="post" action="/CurrQuestion/CurrQuestionFinishLeading" id="Result">
+        </form>
         <form method="post" action="/CurrQuestion/LeadingToStart" id="StartGame">
-            <table border="1">
-                <caption>Усі ваши ігри</caption>
+            <table class="table table-striped table-hover">
                 <tr>
                     <th>Номер</th>
                     <th>Назва турніру</th>
                     <th>Час початку турніру</th>
                     <th>Пакет питань турніру</th>
+                    <th></th>
                 </tr>
 
                 @{
@@ -54,13 +58,13 @@
                                     <input type="hidden" name="idGameSession" value="@x.Id" form="StartGame">
                                     <input type="hidden" name="idPackage" value="@x.PackageOfQuestions?.Id" form="StartGame">
                                     <input type="hidden" name="idLeading" value="@Model.Item1[0].Id" form="StartGame">
-                                    <button type="submit" form="StartGame">Приєднатися до гри</button>
-                                } 
+                                    <button class="btn btn-outline-primary" type="submit" form="StartGame">Приєднатися до гри</button>
+                                }
                                 @if (x.Start < DateTime.Now)
                                 {
                                     <input type="hidden" name="idLeading" value="@Model.Item1[0].Id" form="Result">
                                     <input type="hidden" name="idGameSession" value="@x.Id" form="Result">
-                                    <button type="submit" form="Result">Подивитися таблицю результатів</button>
+                                    <button class="btn btn-outline-primary" type="submit" form="Result">Подивитися таблицю результатів</button>
                                 }
                             </th>
                         </tr>
@@ -69,32 +73,39 @@
 
             </table>
         </form>
-    
 
+        <div class="row">
+            <form class="col-6 offset-3" method="post" action="/Leading/addGame">
+                <div class="mb-3">
+                    <label for="name_of_game_EL" class="form-label">Що це за турнір:</label>
+                    <input type="text" id="name_of_game_EL" class="form-control" name="name_of_game" required>
+                </div>
+                <div class="mb-3">
+                    <label for="datetime_EL" class="form-label">Час, коли буде проводитися гра:</label>
+                    <input id="datetime_EL" type="datetime-local" class="form-control" name="datetime" required>
+                </div>
+                <div class="mb-3">
+                    <label for="packages_EL" class="form-label">Пакет питань, який буде використовуватися на цьому турнирі:</label>
+                    <select size="1" name="packages" class="form-select" id="packages_EL">
+                        @{
+                            foreach (var x in @Model.Item3)
+                            {
+                                <option value="@x.Id">@x.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
 
-
-        <form method="post" action="/Leading/addGame">
-            <label>Що це за турнір:</label>
-            <input type="text" name="name_of_game" required>
-            <label>Час, коли буде проводитися гра: </label>
-            <input type="datetime-local" name="datetime" required>
-            <select size="1" name="packages">
-                <option disabled>Виберіть, який пакет питань буде використовуватися на цьому турнирі:</option>
-                @{
-                    foreach (var x in @Model.Item3)
-                    {
-                        <option value="@x.Id">@x.Name</option>
-                    }
-                }
-            </select>
-            <input type="hidden" name="id" value="@Model.Item1[0].Id">
-            <button type="submit">Створити турнір</button>
-        </form>
-
-        <form method="post" action="/Question/ListQuestion">
+                <button type="submit" class="btn btn-primary">Створити пакет</button>
+            </form>
+        </div>
+        
+        <form method="post" action="/Question/ListQuestion" class="mt-2">
             <input type="hidden" name="idLeading" value="@Model.Item1[0].Id">
-            <button type="submit">Список питань та пакетів</button>
+            <button type="submit" class="btn btn-outline-primary">Список питань та пакетів</button>
         </form>
-</body>
 
+    </div>
+</body>
+<script src="/JS/ListUsers.js"></script>
 </html>
