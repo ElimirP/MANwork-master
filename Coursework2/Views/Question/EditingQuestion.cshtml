@@ -1,0 +1,54 @@
+﻿@model Tuple<List<Coursework2.Data.Models.Questions>,List<Coursework2.Data.Models.PackageOfQuestions>, string>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+</head>
+<body>
+    <form method="post" action="/Question/SaveQuestion">
+        <label>Введіть текст питання:</label>
+        <input type="text" name="question_text" required value="@Model.Item1[0].QuestionText">
+        <label>Введіть відповідь питання:</label>
+        <input type="text" name="answer" required value="@Model.Item1[0].Answer">
+        <label>Введіть коментар до питання:</label>
+        <input type="text" name="сomment" required value="@Model.Item1[0].Comment">
+        <label>Хто автор питання:</label>
+        <input type="text" name="author" required value="@Model.Item1[0].Author">
+
+        <label>До якого пакету питань відноситься це питання:</label>
+        <select size="1" name="packages">
+            <option disabled>Виберіть, до якого пакету відноситься питання:</option>
+            @{
+                foreach (var x in @Model.Item2)
+                {
+                    if (x.Id == Model.Item1[0].IdPackage)
+                    {
+                        <option value="@x.Id" selected>@x.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@x.Id">@x.Name</option>
+
+                    }
+                }
+            }
+        </select>
+
+        <input type="hidden" name="idQuestion" value="@Model.Item1[0].Id" />
+        <input type="hidden" name="idLeading" value="@Model.Item3" />
+        <button type="submit">Зберегти</button>
+    </form>
+
+    <form method="post" action="/Question/DellQuestion">
+        <input type="hidden" name="idQuestion" value="@Model.Item1[0].Id" />
+        <input type="hidden" name="idLeading" value="@Model.Item3" />
+        <button type="submit">Видалити</button>
+    </form>
+</body>
+</html>
