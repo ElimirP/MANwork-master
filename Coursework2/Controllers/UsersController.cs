@@ -21,7 +21,7 @@ namespace Coursework2.Controllers
         {
             db.ClientSession.Add(new ClientSession { IdUser = id, IdSession = addGame});
             db.SaveChanges();
-            return RedirectToAction("ListUsers", "Users", new { id = id });
+            return RedirectToAction("Users", "Users", new { id = id });
         }
 
         public IActionResult ListUsersString(string id)
