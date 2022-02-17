@@ -9,24 +9,43 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </head>
 <body>
-    <form method="post" action="/Question/SavePackage">
-        <label>Ім'я пакету питань:</label>
-        <input type="text" name="name_of_package" required value="@Model.Item1[0].Name">
-        <label>Хто редактор пакету:</label>
-        <input type="text" name="package_editor" required value="@Model.Item1[0].PackageEditor">
-        <label>Коли створен пакет:</label>
-        <input type="datetime-local" name="datetime" required value="@Model.Item1[0].DateOfCreation">
-        <input type="hidden" name="idPackage" value="@Model.Item1[0].Id" />
-        <input type="hidden" name="idLeading" value="@Model.Item2" />
-        <button type="submit">Eding</button>
+    <div class="container">
+        <div class="d-flex justify-content-center flex-column" style=" height: 100vh;">
+            <form method="post" action="/Question/SavePackage">
+                <div class=" d-flex justify-content-center">
+                    <div>
+                        <div class="form-group mb-3">
+                            <label for="cam1" class="form-label h5">Назва пакету питань:</label>
+                            <input id="cam1" class="form-control" type="text" name="name_of_package" required value="@Model.Item1[0].Name">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="cam2" class="form-label h5">Хто редактор пакету:</label>
+                            <input id="cam2" class="form-control" type="text" name="package_editor" required value="@Model.Item1[0].PackageEditor">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="cam3" class="form-label h5">Коли створен пакет:</label>
+                            <input id="cam3" class="form-control" type="datetime-local" name="datetime" required value="@Model.Item1[0].DateOfCreation">
+                        </div>
+                        <input type="hidden" name="idPackage" value="@Model.Item1[0].Id" />
+                        <input type="hidden" name="idLeading" value="@Model.Item2" />
+                        <div class=" d-flex justify-content-center">
+                            <button type="submit" class="btn btn-outline-success btn-lg">Зберегти</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+             <form method="post"  action="/Question/DellPackage">
+         <input type="hidden" name="idPackage" value="@Model.Item1[0].Id" />
+                <input type="hidden" name="idLeading" value="@Model.Item2" />
+        <button type="submit" class="btn btn-outline-danger btn-lg">Видалити</button>
     </form>
+        </div>
+    </div>
 
-    <form method="post" action="/Question/DellPackage">
-        <input type="hidden" name="idPackage" value="@Model.Item1[0].Id" />
-        <input type="hidden" name="idLeading" value="@Model.Item2" />
-        <button type="submit">Delite</button>
-    </form>
 </body>
 </html>
