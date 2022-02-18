@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Data\DB\" />
-    <Folder Include="Views\CurrQuestion\Новая папка\" />
     <Folder Include="wwwroot\CSS\" />
   </ItemGroup>
 

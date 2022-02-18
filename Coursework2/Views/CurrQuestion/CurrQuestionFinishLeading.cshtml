@@ -10,36 +10,45 @@
     <meta name="viewport" content="width=device-width" />
     <title>Lubota's MAN</title>
     <link rel="shortcut icon" href="https://pngicon.ru/file/uploads/sova.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </head>
 <body>
-    <table>
-        <tr>
-            <td>Ім'я учасника</td>
-            <td>Кількість балів</td>
-        </tr>
+    <div class="container">
+        <h4 class="mt-2">Результати: </h4>
+        <table class="table table-striped table-hover">
+            <tr>
+                <td>Ім'я учасника</td>
+                <td>Кількість балів</td>
+            </tr>
 
-        @{
-            foreach (var x in Model.Item2)
-            {
-                <tr>
-                    <td>@x.NameUsers</td>
-                    <td>@x.CountPoints</td>
-                </tr>
+            @{
+                foreach (var x in Model.Item2)
+                {
+                    <tr>
+                        <td>@x.NameUsers</td>
+                        <td>@x.CountPoints</td>
+                    </tr>
+                }
             }
-        }
 
-    </table>
+        </table>
+        <div class="container d-flex justify-content-around">
+            <form method="post" action="/Leading/ListLeadingString">
+                <input type="hidden" name="idLeading" value="@Model.Item1">
+                <button type="submit" class="btn btn-outline-danger">Повернутися до списку ігор</button>
+            </form>
 
-    <form method="post" action="/Results/ListResults">
-        <input type="hidden" name="idLeading" value="@Model.Item1">
-        <input type="hidden" name="idSesion" value="@Model.Item3">
-        <button type="submit">Редагувати результати</button>
-    </form>
+            <form method="post" action="/Results/ListResults">
+                <input type="hidden" name="idLeading" value="@Model.Item1">
+                <input type="hidden" name="idGameSession" value="@Model.Item3">
+                <button class="btn btn-primary" type="submit">Редагувати результати</button>
+            </form>
 
 
-    <form method="post" action="/Leading/ListLeadingString">
-        <input type="hidden" name="idLeading" value="@Model.Item1">
-        <button type="submit">Повернутися до списку ігор</button>
-    </form>
+
+        </div>
+    </div>
 </body>
 </html>

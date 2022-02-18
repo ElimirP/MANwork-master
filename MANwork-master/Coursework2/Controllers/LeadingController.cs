@@ -23,7 +23,7 @@ namespace Coursework2.Controllers
         [HttpPost]
         public IActionResult addGame(string name_of_game, DateTime datetime, string packages , int id)
         {
-            db.GameSession.Add(new GameSession { IdLeading = id, NameOfGame = name_of_game, Start = datetime, IdPackageQuestions = Convert.ToInt32(packages) });
+            db.GameSession.Add(new GameSession {Id = 0, IdLeading = id, NameOfGame = name_of_game, Start = datetime, IdPackageQuestions = Convert.ToInt32(packages) });
             db.SaveChanges();
             return RedirectToAction("ListLeading", "Leading", new { id = id });
         }

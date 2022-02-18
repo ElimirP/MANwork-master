@@ -8,20 +8,16 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Lubota's MAN</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <link rel="shortcut icon" href="https://pngicon.ru/file/uploads/sova.png" type="image/x-icon">
+    <title>List</title>
 </head>
 <body>
-     <div class="container">
-            <h4 class="mt-2">Гравці платформи: </h4>
-    <table class="table table-striped table-hover">
+
+    <table border="1">
+        <caption>О Игроках</caption>
         <tr>
-            <th>Номер</th>
-            <th>Призвище</th>
-            <th>Ім'я</th>
+            <th>id</th>
+            <th>Surname</th>
+            <th>Name</th>
         </tr>
         <tr>
             <th>@Model.Item1[0].Id</th>
@@ -32,14 +28,14 @@
 
     <form method="post" action="/CurrQuestion/CurrQuestionFinishUsers" id="Result">
     </form>
-     <h4 class="mt-2">Усі ващі ігри: </h4>
     <form method="post" action="/CurrQuestion/CurrQuestionUser" id="JointGame">
-        <table class="table table-striped table-hover">
+        <table border="1">
+            <caption>Все ваши игры</caption>
             <tr>
-                <th>Номер</th>
-                <th>Назва турніру</th>
-                <th>Початок турніру</th>
-                 <th></th>
+                <th>id</th>
+                <th>Name of game</th>
+                <th>Start</th>
+                <th></th>
             </tr>
 
             @{
@@ -56,19 +52,20 @@
                                     <th>@d.Id</th>
                                     <th>@d.NameOfGame</th>
                                     <th>@d.Start</th>
+                                    <th>@d.PackageOfQuestions?.Name</th>
                                     <th>
                                         @if ((d.Start <= DateTime.Now.AddMinutes(5)) && (d.Start >= DateTime.Now))
                                         {
                                             <input type="hidden" name="idGameSession" value="@d.Id" form="JointGame">
                                             <input type="hidden" name="idUsers" value="@Model.Item1[0].Id" form="JointGame">
                                             <input type="hidden" name="idPackage" value="@d.PackageOfQuestions?.Id" form="JointGame">
-                                            <button type="submit" form="JointGame"  class="btn btn-outline-primary">Приєднатися до гри</button>
+                                            <button type="submit" form="JointGame">Присоединиться к игре</button>
                                         }
                                         @if (d.Start < DateTime.Now)
                                         {
                                             <input type="hidden" name="idUsers" value="@Model.Item1[0].Id" form="Result">
                                             <input type="hidden" name="idGameSession" value="@d.Id" form="Result">
-                                            <button type="submit" form="Result" class="btn btn-outline-primary">Подивитися таблицю результатів</button>
+                                            <button type="submit" form="Result">Посмотреть таблицу результатов</button>
                                         }
                                     </th>
 
@@ -85,10 +82,10 @@
     </form>
 
 
-    <div class="container">
-         <form method="post" action="/Users/addGame" class="row">
-             <div class="col-8">  
-        <select size="1" name="addGame" class="form-select">
+
+    <form method="post" action="/Users/addGame">
+
+        <select size="1" name="addGame">
             @{
                 bool fg = false;
                 foreach (var x in @Model.Item2)
@@ -109,23 +106,15 @@
                 }
             }
         </select>
-        </div>
-        @*<label>Що це за турнір:</label>
+        @*<label>Что это за турнир:</label>
             <input type="text" name="name_of_game" required>
-            <label>Час, коли буде проводитися гра: </label>
+            <label>Время, когда будет проводится игра: </label>
             <input type="datetime-local" name="datetime" required>*@
         <input type="hidden" name="id" value="@Model.Item1[0].Id">
         @*<input type="hidden" name="idd" value="@Model.Item2[0].Id">*@
-
-        <div class="col-4">
-            <button type="submit" class="btn btn-outline-success">Додати турнір</button>
-        </div>
-        
+        <button type="submit">Add</button>
     </form>
-    
-    </div>
-    
-     </div>
+
 
     <script src="/JS/ListUsers.js"></script>
 </body>
