@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Coursework2.Data.Models;
+﻿using Coursework2.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.Configuration;
 
-
-namespace Coursework2.Data
+namespace MANwork.Data
 {
-    public class AppDBContent : DbContext
+    public sealed class AppDbContent : DbContext
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,7 +18,7 @@ namespace Coursework2.Data
 
 
         }
-        public AppDBContent(DbContextOptions<AppDBContent> options)
+        public AppDbContent(DbContextOptions<AppDbContent> options)
 	        : base(options)
         {
 	        Database.EnsureCreated();  

@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 using Coursework2.Data.Interfaces;
 using Coursework2.Data.Models;
 using Coursework2.Data;
+using MANwork.Data;
 
 namespace Coursework2.Controllers
 {
     public class LeadingController : Controller
     {
-        private AppDBContent db;
-        public LeadingController(AppDBContent context)
+        private AppDbContent db;
+        public LeadingController(AppDbContent context)
         {
 	        db = context;
         }
@@ -40,24 +41,13 @@ namespace Coursework2.Controllers
             var objToView2 = new List<GameSession> { };
             var objToView3 = db.PackageOfQuestions.ToList();
             var obj = db.Leading.ToList();
-            foreach (var x in obj)
+            foreach (var x in obj.Where(x => x.Id == id))
             {
-                if (x.Id == id)
-                {
-                    objToView1.Add(x);
-                    break;
-                }
+                objToView1.Add(x);
+                break;
             }
-
             var obj2 = db.GameSession.ToList();
-            foreach (var x in obj2)
-            {
-                if (x.IdLeading == id)
-                {
-                    objToView2.Add(x);
-                }
-            }
-
+            objToView2.AddRange(obj2.Where(x => x.IdLeading == id));
             var tupleModel = new Tuple<List<Leading>, List<GameSession>, List<PackageOfQuestions>>(objToView1, objToView2, objToView3);
             return View(tupleModel);
         }

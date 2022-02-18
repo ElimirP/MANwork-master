@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Coursework2.Data;
+using MANwork.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Coursework2.Controllers
 {
 	public class HomeController : Controller
 	{
-        private AppDBContent db;
-        public HomeController(AppDBContent context)
+        private AppDbContent db;
+        public HomeController(AppDbContent context)
         {
             db = context;
         }

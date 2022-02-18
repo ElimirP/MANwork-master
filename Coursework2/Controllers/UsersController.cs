@@ -5,14 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MANwork.Data;
 
 namespace Coursework2.Controllers
 {
     public class UsersController : Controller
     {
 
-        private AppDBContent db;
-        public UsersController(AppDBContent context)
+        private AppDbContent db;
+        public UsersController(AppDbContent context)
         {
             db = context;
         }

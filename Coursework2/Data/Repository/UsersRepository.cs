@@ -4,14 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Coursework2.Data.Interfaces;
 using Coursework2.Data.Models;
+using MANwork.Data;
 
 namespace Coursework2.Data.Repository
 {
     public class UsersRepository : IUsers
     {
-        private readonly AppDBContent AppDBContent;
+        private readonly AppDbContent AppDBContent;
 
-        public UsersRepository(AppDBContent AppDBContent)
+        public UsersRepository(AppDbContent AppDBContent)
         {
             this.AppDBContent = AppDBContent;
         }

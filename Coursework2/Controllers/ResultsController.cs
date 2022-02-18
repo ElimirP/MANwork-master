@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Coursework2.Data;
 using Coursework2.Data.Models;
+using MANwork.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,8 +12,8 @@ namespace Coursework2.Controllers
 {
     public class ResultsController : Controller
     {
-        private AppDBContent db;
-        public ResultsController(AppDBContent context)
+        private AppDbContent db;
+        public ResultsController(AppDbContent context)
         {
             db = context;
         }

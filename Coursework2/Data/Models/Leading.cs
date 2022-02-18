@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Coursework2.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using ServiceStack.DataAnnotations;
 
 namespace Coursework2.Data.Models
 {

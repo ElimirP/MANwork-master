@@ -9,7 +9,7 @@ function UpdateTimer()
     seconds = seconds < 10 ? "0" + seconds : seconds;
     TimerEl.innerHTML = `${seconds}`;
     time--;
-    if (time == -1)
+    if (time === -1)
     {
         FormEl.style = "display:block";
         clearInterval(interval);

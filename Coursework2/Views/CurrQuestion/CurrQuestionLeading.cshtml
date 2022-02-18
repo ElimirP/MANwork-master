@@ -6,20 +6,33 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="uk">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
     <title>Lubota's MAN</title>
     <link rel="shortcut icon" href="https://pngicon.ru/file/uploads/sova.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </head>
 <body>
-    <p>@Model.Item3[0].Question</p>
-    <form method="post" action="/CurrQuestion/StartTimeQuestions">
-        <input type="hidden" name="idGameSession" value="@Model.Item1">
-        <input type="hidden" name="idPackage" value="@Model.Item2">
-        <input type="hidden" name="idLeading" value="@Model.Item4">
-        <button type="submit">Початок відліку</button>
-    </form>
+
+<div class="container">
+    <div class="d-flex justify-content-center flex-column" style=" height: 100vh;">
+
+        <form method="post"  class="d-flex justify-content-center flex-column" action="/CurrQuestion/StartTimeQuestions">
+            <h3 class="text-center">@Model.Item3[0].Question</h3>
+            <input type="hidden" name="idGameSession" value="@Model.Item1">
+            <input type="hidden" name="idPackage" value="@Model.Item2">
+            <input type="hidden" name="idLeading" value="@Model.Item4">
+            <hr>
+            <div class="container m-3 d-flex justify-content-center">
+                       <button type="submit" class="btn btn-primary btn-lg">Початок відліку</button>
+            </div>
+     
+        </form>
+        </div>
+    </div>
 </body>
 
 </html>

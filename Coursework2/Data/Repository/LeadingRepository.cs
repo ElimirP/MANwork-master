@@ -4,15 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Coursework2.Data.Interfaces;
 using Coursework2.Data.Models;
+using MANwork.Data;
 
 namespace Coursework2.Data.Repository
 {
     public class LeadingRepository : ILeading
     {
 
-        private readonly AppDBContent AppDBContent;
+        private readonly AppDbContent AppDBContent;
 
-        public LeadingRepository(AppDBContent AppDBContent)
+        public LeadingRepository(AppDbContent AppDBContent)
         {
             this.AppDBContent = AppDBContent;
         }

@@ -14,6 +14,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MANwork.Data;
 
 
 namespace Coursework2
@@ -27,13 +28,15 @@ namespace Coursework2
 	    public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            string fullPath = Path.GetFullPath("..\\Coursework2\\Data\\DB\\Coursework2.mdf");
-
-            string ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename =" + fullPath + ";Integrated Security=True";
-
-            services.AddDbContext<AppDBContent>(options => options.UseSqlServer(ConnectionString));
+            string fullPath = Path.GetFullPath("Data\\DB\\Coursework2.mdf");
+            Console.WriteLine(fullPath);
+            //var ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename =" + fullPath + ";Integrated Security=True";
+            
+            services.AddDbContext<AppDbContent>(options =>
+                options.UseSqlite(@$"Data Source={Path.GetFullPath("database.db")}"));
             services.AddTransient<ILeading, LeadingRepository>();
-
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
             //services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddMvc(options =>
             {
