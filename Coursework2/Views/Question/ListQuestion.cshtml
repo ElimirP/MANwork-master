@@ -96,6 +96,18 @@
                     <input type="text" id="package_editor_EL" class="form-control" name="package_editor" required>
                 </div>
                 <div class="mb-3">
+                    <label for="package_editor_EL" class="form-label">Тип турніру:</label>
+                     <select  class="form-select" id="packages_EL" name="packages">
+                        <option disabled>Типи турнірів:</option>
+                        @{
+                            foreach (var x in @Model.Item2)
+                            {
+                                <option value="@x.Id">@x.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label for="datetime_EL" class="form-label">Коли створено пакет:</label>
                     <input id="datetime_EL" type="datetime-local" class="form-control" name="datetime" required>
                 </div>
@@ -120,6 +132,10 @@
                 <div class="mb-3">
                     <label for="author_EL" class="form-label">Введіть автора питання:</label>
                     <input type="text" id="author_EL" class="form-control" name="author" required>
+                </div>
+                <div class="mb-3">
+                    <label for="picture_EL" class="form-label">Завантажте фотографію до питання (за потребою):</label>
+                    <input type="text" id="picture_EL" class="form-control" name="picture" required>
                 </div>
                 <div class="mb-3" >
                     <label for="packages_EL" class="form-label">Виберіть, до якого пакету належить питання:</label>
