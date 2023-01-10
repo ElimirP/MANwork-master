@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Coursework2.Data;
 using Coursework2.Data.Models;
 using MANwork.Data;
+using MANwork.Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coursework2.Controllers
@@ -19,10 +23,24 @@ namespace Coursework2.Controllers
         }
 
         [HttpPost]
-        public IActionResult addQuestion(string question_text, string answer, string сomment, string author, string packages, string idLeading)
+        public IActionResult addQuestion(string question_text, string answer, string сomment, string author, string packages, string idLeading, IFormFile picture)
         {
+            string fileName = Path.GetFileName(picture.FileName);
+            int ImageId = db.Images.Count() + 1;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                picture.CopyTo(ms);
+                Image image = new Image()
+                {
+                    Id = ImageId,
+                    Name = fileName,
+                    image = ms.ToArray(),
+                }; 
+                db.Images.Add(image);
+                db.SaveChanges();
+            }
 
-            db.Questions.Add(new Questions { Id = db.Questions.ToList().Count + 1, QuestionText = question_text, Answer = answer, Comment = сomment, Author = author, IdPackage = Convert.ToInt32(packages)});
+            db.Questions.Add(new Questions { Id = db.Questions.ToList().Count + 1, QuestionText = question_text, Answer = answer, Comment = сomment, Author = author, IdPackage = Convert.ToInt32(packages), IdImage = ImageId });
             db.SaveChanges();
             return RedirectToAction("ListQuestion", "Question", new { idLeading = idLeading });
         }

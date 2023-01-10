@@ -1,4 +1,5 @@
 ﻿using Coursework2.Data.Models;
+using MANwork.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MANwork.Data
@@ -15,6 +16,7 @@ namespace MANwork.Data
             modelBuilder.Entity<Questions>().HasKey(u => u.Id);
             modelBuilder.Entity<CurrentQuestion>().HasKey(u => u.Id);
             modelBuilder.Entity<CurrentAnswer>().HasKey(u => u.Id);
+            modelBuilder.Entity<Image>().HasKey(u => u.Id);
 
 
         }
@@ -32,5 +34,6 @@ namespace MANwork.Data
         public DbSet<Questions> Questions { get; set; }
         public DbSet<CurrentQuestion> CurrentQuestion { get; set; }
         public DbSet<CurrentAnswer> CurrentAnswer { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }
