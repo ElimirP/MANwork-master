@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Coursework2.Data.Models;
+using MANwork.Data.Models;
 
 namespace Coursework2.Data.Models
 {
@@ -24,5 +25,9 @@ namespace Coursework2.Data.Models
         public string Comment { get; set; }
 
         public string Author { get; set; }
+
+        public int IdImage { get; set; }
+        [ForeignKey("IdImage")]
+        public Image Image { get; set; }
     }
 }

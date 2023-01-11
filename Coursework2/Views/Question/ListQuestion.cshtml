@@ -1,4 +1,4 @@
-﻿@model Tuple<List<Coursework2.Data.Models.Questions>, List<Coursework2.Data.Models.PackageOfQuestions>,string>
+﻿@model Tuple<List<Coursework2.Data.Models.Questions>, List<Coursework2.Data.Models.PackageOfQuestions>,  List<Coursework2.Data.Models.Image>,string>
 @{
     Layout = null;
 }
@@ -22,6 +22,7 @@
                     <th>Номер</th>
                     <th>Назва пакету</th>
                     <th>Текст питання</th>
+                    <th>Фотографія</th>
                     <th>Відповідь</th>
                     <th>Коментар</th>
                     <th>Автор</th>
@@ -36,13 +37,16 @@
                             <th>@h</th>
                             <th>@x.PackageOfQuestions?.Name</th>
                             <th>@x.QuestionText</th>
+                            <th>
+                                <img src="data:image/jpg;base64, (@x.Image?.image)">
+                            </th>
                             <th>@x.Answer</th>
                             <th>@x.Comment</th>
                             <th>@x.Author</th>
                             <th>
                                 <form method="post" action="/Question/EditingQuestion">
                                     <input type="hidden" name="idQuestion" value="@h" />
-                                    <input type="hidden" name="idLeading" value="@Model.Item3" />
+                                    <input type="hidden" name="idLeading" value="@Model.Item4" />
                                     <button class="btn btn-outline-primary" type="submit">Редагувати</button>
                                 </form>
                             </th>
@@ -75,7 +79,7 @@
                             <th>
                                 <form method="post" action="/Question/EditingPackage">
                                     <input type="hidden" value="@x.Id" name="idPackage">
-                                    <input type="hidden" name="idLeading" value="@Model.Item3" />
+                                    <input type="hidden" name="idLeading" value="@Model.Item4" />
                                     <button class="btn btn-outline-primary" type="submit">Редагувати</button>
                                 </form>
                             </th>
@@ -135,7 +139,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="picture_EL" class="form-label">Завантажте фотографію до питання (за потребою):</label>
-                    <input type="text" id="picture_EL" class="form-control" name="picture" required>
+                    <input type="file" id="picture_EL" class="form-control" name="picture" required>
                 </div>
                 <div class="mb-3" >
                     <label for="packages_EL" class="form-label">Виберіть, до якого пакету належить питання:</label>
@@ -149,8 +153,7 @@
                         }
                     </select>
                 </div>
-
-                <input type="hidden" name="idLeading" value="@Model.Item3">
+                <input type="hidden" name="idLeading" value="@Model.Item4">
                 <button type="submit" class="btn btn-primary">Створити питання</button>
             </form>
         </div>
@@ -159,7 +162,7 @@
 
 
         <form method="post" class="m-3" action="/Leading/ListLeadingString">
-            <input type="hidden" name="idLeading" value="@Model.Item3">
+            <input type="hidden" name="idLeading" value="@Model.Item4">
             <button type="submit" class="btn btn-outline-danger">Повернутися назад</button>
         </form>
     </div>
